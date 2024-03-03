@@ -59,5 +59,6 @@ public class ButtonInventory extends InventoryHandler {
         }
 
         CurrentInventories.registerHandler(inventory, this);
+        player.openInventory(inventory);
     }
 }
