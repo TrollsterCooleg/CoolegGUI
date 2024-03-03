@@ -1,0 +1,4 @@
+name: CoolegGUI
+version: '${project.version}'
+main: me.cooleg.cooleggui.CoolegGUI
+api-version: '1.14'
