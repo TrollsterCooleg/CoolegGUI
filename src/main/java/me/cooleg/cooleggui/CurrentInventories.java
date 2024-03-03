@@ -34,7 +34,7 @@ public class CurrentInventories implements Listener {
     public void inventoryClick(InventoryClickEvent event) {
         InventoryHandler handler = inventoryHandlers.get(event.getInventory());
         if (handler == null) {return;}
-        handler.onClick(event);
+        handler.onClick(event, event.getInventory() == event.getClickedInventory());
     }
 
     public static void registerHandler(Inventory inventory, InventoryHandler handler) {

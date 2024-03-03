@@ -16,6 +16,7 @@ public class CustomInventoryBuilder {
     private Consumer<InventoryCloseEvent> closeConsumer = (discard) -> {};
     private String name;
     private final int size;
+    private boolean canMoveItems = false;
 
     public CustomInventoryBuilder(String name, int size) {
         this.name = name;
@@ -59,8 +60,13 @@ public class CustomInventoryBuilder {
         return this;
     }
 
+    public CustomInventoryBuilder movableItems(boolean canMoveItems) {
+        this.canMoveItems = canMoveItems;
+        return this;
+    }
+
     public InventoryHandler build() {
-        return new ButtonInventory(buttons, size, name, openConsumer, closeConsumer);
+        return new ButtonInventory(buttons, size, name, canMoveItems, openConsumer, closeConsumer);
     }
 
 }

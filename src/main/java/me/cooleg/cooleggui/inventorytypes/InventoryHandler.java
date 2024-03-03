@@ -13,7 +13,7 @@ public abstract class InventoryHandler {
 
     public void onClose(InventoryCloseEvent event) {}
 
-    public void onClick(InventoryClickEvent event) {}
+    public void onClick(InventoryClickEvent event, boolean clickedGUI) {}
 
     /**
      * Make sure to make it register the listener with {@link CurrentInventories#registerHandler(Inventory, InventoryHandler)}

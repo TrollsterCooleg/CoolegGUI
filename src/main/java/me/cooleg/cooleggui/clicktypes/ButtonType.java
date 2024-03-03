@@ -6,7 +6,6 @@ import org.bukkit.inventory.ItemStack;
 import java.util.function.Consumer;
 
 public abstract class ButtonType {
-
     private final ItemStack item;
     private final Consumer<InventoryClickEvent> consumer;
 
@@ -23,5 +22,7 @@ public abstract class ButtonType {
         consumer.accept(event);
     }
 
-
+    public boolean isTakeable() {
+        return false;
+    }
 }

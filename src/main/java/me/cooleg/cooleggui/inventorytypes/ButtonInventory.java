@@ -20,25 +20,30 @@ public class ButtonInventory extends InventoryHandler {
     public final Consumer<InventoryCloseEvent> inventoryClose;
     private final int slotCount;
     private final String name;
+    private final boolean canMoveItems;
 
-    public ButtonInventory(HashMap<Integer, ButtonType> buttons, int size, String name,
+    public ButtonInventory(HashMap<Integer, ButtonType> buttons, int size, String name, boolean canMoveItems,
                            Consumer<InventoryOpenEvent> inventoryOpen, Consumer<InventoryCloseEvent> inventoryClose) {
         this.buttons = buttons;
         this.inventoryOpen = inventoryOpen;
         this.inventoryClose = inventoryClose;
         this.name = name;
+        this.canMoveItems = canMoveItems;
         slotCount = size;
     }
 
     @Override
-    public void onClick(InventoryClickEvent event) {
-        event.setCancelled(true);
+    public void onClick(InventoryClickEvent event, boolean clickedGUI) {
+        if (!canMoveItems) {event.setCancelled(true);}
+        if (!clickedGUI) {return;}
+
         int clickedSlot = event.getSlot();
         if (clickedSlot < 0 || clickedSlot >= slotCount) {return;}
 
         ButtonType type = buttons.get(clickedSlot);
         if (type == null) {return;}
         type.buttonPress(event);
+        if (!canMoveItems && type.isTakeable()) {event.setCancelled(false);}
     }
 
     @Override
