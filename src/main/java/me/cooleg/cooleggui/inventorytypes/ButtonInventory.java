@@ -33,7 +33,7 @@ public class ButtonInventory extends InventoryHandler {
 
         ButtonType type = buttons.get(clickedSlot);
         if (type == null) {return;}
-        type.buttonPress();
+        type.buttonPress(event);
     }
 
     @Override
