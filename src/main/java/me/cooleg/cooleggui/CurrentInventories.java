@@ -27,7 +27,7 @@ public class CurrentInventories implements Listener {
         if (handler == null) {return;}
         handler.onClose(event);
 
-        unregisterHandler(handler);
+        unregisterInventory(event.getInventory());
     }
 
     @EventHandler
@@ -37,12 +37,12 @@ public class CurrentInventories implements Listener {
         handler.onClick(event);
     }
 
-    public static void registerHandler(InventoryHandler handler) {
-        inventoryHandlers.put(handler.getInventory(), handler);
+    public static void registerHandler(Inventory inventory, InventoryHandler handler) {
+        inventoryHandlers.put(inventory, handler);
     }
 
-    public static void unregisterHandler(InventoryHandler handler) {
-        inventoryHandlers.remove(handler.getInventory());
+    public static void unregisterInventory(Inventory inventory) {
+        inventoryHandlers.remove(inventory);
     }
 
 

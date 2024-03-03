@@ -1,12 +1,16 @@
 package me.cooleg.cooleggui.inventorytypes;
 
+import me.cooleg.cooleggui.CurrentInventories;
 import me.cooleg.cooleggui.clicktypes.ButtonType;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.inventory.Inventory;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Consumer;
 
 public class ButtonInventory extends InventoryHandler {
@@ -15,14 +19,15 @@ public class ButtonInventory extends InventoryHandler {
     public final Consumer<InventoryOpenEvent> inventoryOpen;
     public final Consumer<InventoryCloseEvent> inventoryClose;
     private final int slotCount;
+    private final String name;
 
-    public ButtonInventory(HashMap<Integer, ButtonType> buttons, Inventory inventory,
+    public ButtonInventory(HashMap<Integer, ButtonType> buttons, int size, String name,
                            Consumer<InventoryOpenEvent> inventoryOpen, Consumer<InventoryCloseEvent> inventoryClose) {
-        super(inventory);
         this.buttons = buttons;
         this.inventoryOpen = inventoryOpen;
         this.inventoryClose = inventoryClose;
-        slotCount = inventory.getSize();
+        this.name = name;
+        slotCount = size;
     }
 
     @Override
@@ -44,5 +49,15 @@ public class ButtonInventory extends InventoryHandler {
     @Override
     public void onClose(InventoryCloseEvent event) {
         inventoryClose.accept(event);
+    }
+
+    @Override
+    public void openFor(Player player) {
+        Inventory inventory = Bukkit.createInventory(null, slotCount, name);
+        for (Map.Entry<Integer, ButtonType> entries : buttons.entrySet()) {
+            inventory.setItem(entries.getKey(), entries.getValue().getItem());
+        }
+
+        CurrentInventories.registerHandler(inventory, this);
     }
 }

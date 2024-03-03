@@ -9,30 +9,16 @@ import org.bukkit.inventory.Inventory;
 
 public abstract class InventoryHandler {
 
-    private final Inventory inventory;
-
-    public InventoryHandler(Inventory inventory) {
-        this.inventory = inventory;
-    }
-
     public void onOpen(InventoryOpenEvent event) {}
 
     public void onClose(InventoryCloseEvent event) {}
 
     public void onClick(InventoryClickEvent event) {}
 
-    public void openFor(Player player) {
-        CurrentInventories.registerHandler(this);
-        player.openInventory(inventory);
-    }
-
     /**
-     * Returns instance of inventory that backs this handler.
-     * Intended for internal use, if you wish to edit an inventory its recommended you do so in onOpen.
-     * To show an inventory to a player, use #openFor(Player) or it will not be properly registered.
-     * @return Instance of inventory behind this Inventory Handler
+     * Make sure to make it register the listener with {@link CurrentInventories#registerHandler(Inventory, InventoryHandler)}
+     * @param player Player to open inventory for
      */
-    public Inventory getInventory() {
-        return inventory;
-    }
+    public abstract void openFor(Player player);
+
 }

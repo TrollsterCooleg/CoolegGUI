@@ -2,14 +2,11 @@ package me.cooleg.cooleggui.inventorytypes;
 
 import me.cooleg.cooleggui.clicktypes.ButtonType;
 import me.cooleg.cooleggui.clicktypes.DummyButton;
-import org.bukkit.Bukkit;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
-import java.util.Map;
 import java.util.function.Consumer;
 
 public class CustomInventoryBuilder {
@@ -63,12 +60,7 @@ public class CustomInventoryBuilder {
     }
 
     public InventoryHandler build() {
-        Inventory inventory = Bukkit.createInventory(null, size, name);
-        for (Map.Entry<Integer, ButtonType> entries : buttons.entrySet()) {
-            inventory.setItem(entries.getKey(), entries.getValue().getItem());
-        }
-
-        return new ButtonInventory(buttons, inventory, openConsumer, closeConsumer);
+        return new ButtonInventory(buttons, size, name, openConsumer, closeConsumer);
     }
 
 }
